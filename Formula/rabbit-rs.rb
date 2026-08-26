@@ -2,12 +2,12 @@ class RabbitRs < Formula
   desc "High-performance RabbitMQ transport for PHP, powered by Rust"
   homepage "https://github.com/Goopil/rabbit-rs"
   license "MIT"
-  version "0.0.6"
 
   # Class-level URL is the PHP 8.4 macOS arm64 NTS binary.
   # PHP 8.5 is handled via a resource block below.
   # In install, we detect the PHP version and stage the correct artifact.
   url "https://github.com/Goopil/rabbit-rs/releases/download/v0.0.6/php_rabbit_rs-v0.0.6_php8.4-arm64-darwin-nts.zip"
+  version "0.0.6"
   sha256 "0000000000000000000000000000000000000000000000000000000000000000"
 
   depends_on "php"
@@ -24,7 +24,7 @@ class RabbitRs < Formula
   end
 
   def install
-    php_version = Utils.safe_popen_read(Formula["php"].opt_bin/"php-config", "--version").strip
+    php_version = Utils.safe_popen_read(formula_opt_bin("php")/"php-config", "--version").strip
     php_major_minor = php_version.split(".")[0, 2].join(".")
 
     supported = ["8.4", "8.5"]
@@ -50,7 +50,7 @@ class RabbitRs < Formula
   end
 
   def post_install
-    ext_dir = Utils.safe_popen_read(Formula["php"].opt_bin/"php-config", "--extension-dir").strip
+    ext_dir = Utils.safe_popen_read(formula_opt_bin("php")/"php-config", "--extension-dir").strip
 
     ini_path = etc/"php/conf.d/ext-rabbit_rs.ini"
 
@@ -67,12 +67,12 @@ class RabbitRs < Formula
     ini_path = etc/"php/conf.d/ext-rabbit_rs.ini"
     ini_path.unlink if ini_path.exist?
 
-    ext_dir = Utils.safe_popen_read(Formula["php"].opt_bin/"php-config", "--extension-dir").strip
+    ext_dir = Utils.safe_popen_read(formula_opt_bin("php")/"php-config", "--extension-dir").strip
     ext_so = Pathname.new(ext_dir)/"rabbit_rs.so"
     ext_so.unlink if ext_so.symlink? && ext_so.exist?
   end
 
   test do
-    assert_match "rabbit_rs", shell_output("#{Formula["php"].opt_bin/"php"} -m")
+    assert_match "rabbit_rs", shell_output("#{formula_opt_bin("php")}/php -m")
   end
 end
