@@ -6,17 +6,17 @@ class RabbitRs < Formula
   sha256 "0000000000000000000000000000000000000000000000000000000000000000"
   license "MIT"
 
+  livecheck do
+    url :stable
+    strategy :github_latest
+  end
+
   depends_on "php"
 
   # PHP 8.5 macOS arm64 NTS binary.
   resource "php85" do
     url "https://github.com/Goopil/rabbit-rs/releases/download/v0.0.6/php_rabbit_rs-v0.0.6_php8.5-arm64-darwin-nts.zip"
     sha256 "0000000000000000000000000000000000000000000000000000000000000000"
-  end
-
-  livecheck do
-    url :stable
-    strategy :github_latest
   end
 
   def install
