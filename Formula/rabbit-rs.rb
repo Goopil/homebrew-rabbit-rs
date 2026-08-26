@@ -4,14 +4,15 @@ class RabbitRs < Formula
   license "MIT"
   version "0.0.6"
 
+  # Class-level URL is the PHP 8.4 macOS arm64 NTS binary.
+  # PHP 8.5 is handled via a resource block below.
+  # In install, we detect the PHP version and stage the correct artifact.
+  url "https://github.com/Goopil/rabbit-rs/releases/download/v0.0.6/php_rabbit_rs-v0.0.6_php8.4-arm64-darwin-nts.zip"
+  sha256 "0000000000000000000000000000000000000000000000000000000000000000"
+
   depends_on "php"
 
-  # macOS arm64 NTS only. Homebrew PHP is NTS-only on macOS.
-  resource "php84" do
-    url "https://github.com/Goopil/rabbit-rs/releases/download/v0.0.6/php_rabbit_rs-v0.0.6_php8.4-arm64-darwin-nts.zip"
-    sha256 "0000000000000000000000000000000000000000000000000000000000000000"
-  end
-
+  # PHP 8.5 macOS arm64 NTS binary.
   resource "php85" do
     url "https://github.com/Goopil/rabbit-rs/releases/download/v0.0.6/php_rabbit_rs-v0.0.6_php8.5-arm64-darwin-nts.zip"
     sha256 "0000000000000000000000000000000000000000000000000000000000000000"
@@ -35,10 +36,16 @@ class RabbitRs < Formula
       odie "rabbit-rs Homebrew formula supports Apple Silicon only. Use PIE on Intel Macs."
     end
 
-    resource_name = "php" + php_major_minor.tr(".", "")
-    resource(resource_name).stage do
-      libexec.mkpath
+    libexec.mkpath
+
+    if php_major_minor == "8.4"
+      # The class-level URL (PHP 8.4) is already staged by Homebrew.
       cp "rabbit_rs.so", libexec/"rabbit_rs.so"
+    else
+      # PHP 8.5 uses the resource block.
+      resource("php85").stage do
+        cp "rabbit_rs.so", libexec/"rabbit_rs.so"
+      end
     end
   end
 
