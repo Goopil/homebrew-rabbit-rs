@@ -44,9 +44,13 @@ class RabbitRs < Formula
   end
 
   def post_install
-    ext_dir = Utils.safe_popen_read(formula_opt_bin("php")/"php-config", "--extension-dir").strip
+    php_config = formula_opt_bin("php")/"php-config"
+    ext_dir = Utils.safe_popen_read(php_config, "--extension-dir").strip
+    php_version = Utils.safe_popen_read(php_config, "--version").strip
+    php_major_minor = php_version.split(".")[0, 2].join(".")
 
-    ini_path = etc/"php/conf.d/ext-rabbit_rs.ini"
+    # Homebrew PHP scans #{etc}/php/{version}/conf.d/ not #{etc}/php/conf.d/
+    ini_path = etc/"php"/php_major_minor/"conf.d"/"ext-rabbit_rs.ini"
 
     ext_so = Pathname.new(ext_dir)/"rabbit_rs.so"
     ohai "Installing rabbit_rs.so into #{ext_dir}"
@@ -58,10 +62,14 @@ class RabbitRs < Formula
   end
 
   def uninstall
-    ini_path = etc/"php/conf.d/ext-rabbit_rs.ini"
+    php_config = formula_opt_bin("php")/"php-config"
+    php_version = Utils.safe_popen_read(php_config, "--version").strip
+    php_major_minor = php_version.split(".")[0, 2].join(".")
+
+    ini_path = etc/"php"/php_major_minor/"conf.d"/"ext-rabbit_rs.ini"
     ini_path.unlink if ini_path.exist?
 
-    ext_dir = Utils.safe_popen_read(formula_opt_bin("php")/"php-config", "--extension-dir").strip
+    ext_dir = Utils.safe_popen_read(php_config, "--extension-dir").strip
     ext_so = Pathname.new(ext_dir)/"rabbit_rs.so"
     ext_so.unlink if ext_so.symlink? && ext_so.exist?
   end
