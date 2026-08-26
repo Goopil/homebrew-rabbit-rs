@@ -3,7 +3,7 @@ class RabbitRs < Formula
   homepage "https://github.com/Goopil/rabbit-rs"
   url "https://github.com/Goopil/rabbit-rs/releases/download/v0.0.6/php_rabbit_rs-v0.0.6_php8.4-arm64-darwin-nts.zip"
   version "0.0.6"
-  sha256 "0000000000000000000000000000000000000000000000000000000000000000"
+    sha256 "1fc7d5a53ccaf7dfefb57fb3dce3eafb706d5ed73e2a4d0955e77a0fbbda7e27"
   license "MIT"
 
   livecheck do
@@ -16,7 +16,7 @@ class RabbitRs < Formula
   # PHP 8.5 macOS arm64 NTS binary.
   resource "php85" do
     url "https://github.com/Goopil/rabbit-rs/releases/download/v0.0.6/php_rabbit_rs-v0.0.6_php8.5-arm64-darwin-nts.zip"
-    sha256 "0000000000000000000000000000000000000000000000000000000000000000"
+  sha256 "aba6c8e1c8ebd80f80e47332e5ee03443abb639339969a20fbb22dc0353c5b5d"
   end
 
   def install
