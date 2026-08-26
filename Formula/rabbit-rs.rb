@@ -1,14 +1,10 @@
 class RabbitRs < Formula
   desc "High-performance RabbitMQ transport for PHP, powered by Rust"
   homepage "https://github.com/Goopil/rabbit-rs"
-  license "MIT"
-
-  # Class-level URL is the PHP 8.4 macOS arm64 NTS binary.
-  # PHP 8.5 is handled via a resource block below.
-  # In install, we detect the PHP version and stage the correct artifact.
   url "https://github.com/Goopil/rabbit-rs/releases/download/v0.0.6/php_rabbit_rs-v0.0.6_php8.4-arm64-darwin-nts.zip"
   version "0.0.6"
   sha256 "0000000000000000000000000000000000000000000000000000000000000000"
+  license "MIT"
 
   depends_on "php"
 
@@ -39,10 +35,8 @@ class RabbitRs < Formula
     libexec.mkpath
 
     if php_major_minor == "8.4"
-      # The class-level URL (PHP 8.4) is already staged by Homebrew.
       cp "rabbit_rs.so", libexec/"rabbit_rs.so"
     else
-      # PHP 8.5 uses the resource block.
       resource("php85").stage do
         cp "rabbit_rs.so", libexec/"rabbit_rs.so"
       end
