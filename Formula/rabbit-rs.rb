@@ -2,7 +2,6 @@ class RabbitRs < Formula
   desc "High-performance RabbitMQ transport for PHP, powered by Rust"
   homepage "https://github.com/Goopil/rabbit-rs"
   url "https://github.com/Goopil/rabbit-rs/releases/download/v0.1.0/php_rabbit_rs-v0.1.0_php8.4-arm64-darwin-nts.zip"
-  version "0.1.0"
   sha256 "bbd6fa0cbd7d85e7d174c3e8bb6b06f5508a98841c0d7a36afdd331a3a2f3085"
   license "MIT"
 
