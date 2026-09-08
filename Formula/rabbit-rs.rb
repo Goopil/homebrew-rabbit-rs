@@ -2,7 +2,7 @@ class RabbitRs < Formula
   desc "High-performance RabbitMQ transport for PHP, powered by Rust"
   homepage "https://github.com/Goopil/rabbit-rs"
   url "https://github.com/Goopil/rabbit-rs/releases/download/v0.1.6/php_rabbit_rs-v0.1.6_php8.4-arm64-darwin-nts.zip"
-  sha256 "fd9a1d89c6bb5e7ffd5e3a8a1a331e0f3d3db23033469fb32a37c881970f83f6"
+  sha256 "73971302dfd4d8d7c56f2392bf1c0af7c2d14d4c7cca678e29d2d377f699bde4"
   license "MIT"
 
   livecheck do
@@ -15,7 +15,7 @@ class RabbitRs < Formula
   # PHP 8.5 macOS arm64 NTS binary.
   resource "php85" do
     url "https://github.com/Goopil/rabbit-rs/releases/download/v0.1.6/php_rabbit_rs-v0.1.6_php8.5-arm64-darwin-nts.zip"
-    sha256 "b825b5a9465eef63e87dc824ea10a324b3bead20d536aa8f5e086a613267ce8a"
+    sha256 "c3872442e1e91019da75ec6f9c2475286248dfd8fe275f0e823db3d5b5f48a43"
   end
 
   def install
